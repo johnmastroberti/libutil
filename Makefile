@@ -3,7 +3,7 @@ LD = g++
 
 IFLAGS = -Iinclude
 WFLAGS = -Wall -Wextra -Wpedantic -Wshadow
-CXXFLAGS = -std=c++20 $(IFLAGS) $(WFLAGS) -g
+CXXFLAGS = -std=c++20 $(IFLAGS) $(WFLAGS)
 
 headers = include/range.hpp
 
@@ -13,6 +13,15 @@ test: range_test.out
 	./range_test.out
 
 range_test.out: test/range.cpp $(headers)
-	$(CXX) -o $@ $(CXXFLAGS) $< -lfmt
+	$(CXX) -o $@ $(CXXFLAGS) $<
 
-.PHONY: default test
+benchmark: range_benchmark.out
+	./range_benchmark.out
+
+range_benchmark.out: benchmarks/range.cpp $(headers)
+	$(CXX) -o $@ $(CXXFLAGS) -O3 $< -lbenchmark
+
+clean:
+	rm -f *.o *.out
+
+.PHONY: default test benchmark clean
