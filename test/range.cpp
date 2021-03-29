@@ -60,3 +60,20 @@ TEST_CASE("Simple integral", "[range]") {
 
   REQUIRE(sum1 == sum2);
 }
+
+constexpr auto test_range(int low, int high) {
+  auto sum = 0;
+  for (auto i : Range(low, high))
+    sum += i;
+  return sum;
+}
+
+
+TEST_CASE("Range in a constexpr context", "[range]") {
+  constexpr auto sum1 = test_range(0, 11);
+  constexpr auto sum2 = 55;
+  static_assert(sum1 == sum2, "range fail");
+
+  REQUIRE(sum1 == sum2);
+}
+
