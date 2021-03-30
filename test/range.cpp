@@ -31,7 +31,7 @@ TEST_CASE("Range with lower bound", "[range]") {
 TEST_CASE("Floating point range", "[range]") {
   double sum1=0.0, sum2=0.0;
 
-  for (auto x : FloatRange(-5.0, 5.0, 100))
+  for (auto x : Range(-5.0, 5.0, 100))
     sum1 += x;
 
   auto low = -5.0;
@@ -48,8 +48,8 @@ TEST_CASE("Simple integral", "[range]") {
 
   auto f = [](int x) { return x*x; };
 
-  for (auto r = FloatRange(-5.0, 5.0, 100); auto x : r)
-    sum1 += f(x)*r.step_size();
+  for (auto x : Range(-5.0, 5.0, 100))
+    sum1 += f(x)*step_size(-5.0, 5.0, 100);
 
   auto low = -5.0;
   auto high = 5.0;

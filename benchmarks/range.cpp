@@ -29,8 +29,8 @@ double f(double x) {
 static void BM_RangeIntegral(benchmark::State& state) {
   for (auto _ : state) {
     double sum = 0.0;
-    for (auto r = FloatRange(0.0, 1.0, 1'000'000); auto x : r)
-      benchmark::DoNotOptimize(sum += f(x)*r.step_size());
+    for (auto r = Range(0.0, 1.0, 1'000'000); auto x : r)
+      benchmark::DoNotOptimize(sum += f(x)*step_size(0.0, 1.0, 1'000'000));
   }
 }
 BENCHMARK(BM_RangeIntegral);
